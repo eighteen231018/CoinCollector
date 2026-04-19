@@ -5,7 +5,10 @@
     "$className": "DataModel",
     "ReplicatedStorage": {
       "$className": "ReplicatedStorage",
-      "$path": "src/shared"
+      "$ignoreUnknownInstances": true,
+      "CoinConstants": { "$path": "src/shared/CoinConstants.lua" },
+      "CoinUtility": { "$path": "src/shared/CoinUtility.lua" },
+      "PlayerData": { "$path": "src/shared/PlayerData.lua" }
     },
     "ServerScriptService": {
       "$className": "ServerScriptService",
