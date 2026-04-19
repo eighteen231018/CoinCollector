@@ -1,4 +1,3 @@
-local ServerStorage = game:GetService("ServerStorage")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -6,6 +5,7 @@ local CoinConstants = require(ReplicatedStorage:WaitForChild("CoinConstants"))
 local PlayerData = require(ReplicatedStorage:WaitForChild("PlayerData"))
 local CoinUtility = require(ReplicatedStorage:WaitForChild("CoinUtility"))
 
+-- 创建远程事件
 local updateCoinEvent = Instance.new("RemoteEvent")
 updateCoinEvent.Name = "UpdateCoinEvent"
 updateCoinEvent.Parent = ReplicatedStorage
@@ -40,6 +40,8 @@ local function spawnInitialCoins()
     end
 end
 
+-- 延迟初始化，确保所有模块加载完成
+task.wait(0.1)
 setupExistingCoins()
 spawnInitialCoins()
 

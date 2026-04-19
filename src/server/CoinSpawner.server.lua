@@ -3,7 +3,19 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local CoinConstants = require(ReplicatedStorage:WaitForChild("CoinConstants"))
 local CoinUtility = require(ReplicatedStorage:WaitForChild("CoinUtility"))
 
-local CoinManager = require(script.Parent:WaitForChild("CoinManager"))
+-- 等待 CoinManager 加载
+local CoinManager
+local success, err = pcall(function()
+    CoinManager = require(script.Parent:WaitForChild("CoinManager"))
+end)
+
+if not success then
+    warn("⚠️ 无法加载 CoinManager: " .. tostring(err))
+    return
+end
+
+-- 等待一小段时间让系统稳定
+task.wait(1)
 
 while true do
     task.wait(CoinConstants.SPAWN_INTERVAL)
