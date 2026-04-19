@@ -11,6 +11,14 @@
       "$className": "ServerScriptService",
       "Server": { "$path": "src/server" }
     },
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "CoinTemplate": { "$path": "src/workspace/Coin.rbxm" }
+    },
+    "StarterGui": {
+      "$className": "StarterGui",
+      "CoinDisplayGui": { "$path": "src/gui/CoinDisplayGui.rbxm" }
+    },
     "StarterPlayer": {
       "$className": "StarterPlayer",
       "StarterPlayerScripts": {

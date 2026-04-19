@@ -9,7 +9,7 @@ function CoinUtility:GetCurrentCoinCount()
     local count = 0
     for _, obj in ipairs(Workspace:GetChildren()) do
         if obj:IsA("Model") and obj.Name == CoinConstants.COIN_MODEL_NAME then
-            count += 1
+            count = count + 1
         end
     end
     return count
