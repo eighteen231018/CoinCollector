@@ -52,20 +52,14 @@ function CoinUtility:GetRandomSpawnPosition()
     
     local rayOrigin = Vector3.new(x, 50, z)
     local rayDirection = Vector3.new(0, -100, 0)
-    local raycastParams = RaycastParams.new()
-    raycastParams.FilterType = Enum.RaycastFilterType.Include
     
-    local baseplate = Workspace:FindFirstChild("Baseplate")
-    if baseplate then
-        raycastParams.FilterDescendantsInstances = {baseplate}
-    end
-    
-    local raycastResult = Workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+    local raycastResult = Workspace:Raycast(rayOrigin, rayDirection)
     
     if raycastResult then
         return raycastResult.Position + Vector3.new(0, 2, 0)
     else
-        return Vector3.new(x, 2, z)
+        -- 如果找不到地面，就使用默认高度
+        return Vector3.new(x, 3, z)
     end
 end
 

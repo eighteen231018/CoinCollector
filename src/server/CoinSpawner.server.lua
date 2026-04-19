@@ -1,22 +1,35 @@
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
 local CoinConstants = require(ReplicatedStorage:WaitForChild("CoinConstants"))
+local PlayerData = require(ReplicatedStorage:WaitForChild("PlayerData"))
 local CoinUtility = require(ReplicatedStorage:WaitForChild("CoinUtility"))
 
--- 等待 CoinManager 加载
-local CoinManager
-local success, err = pcall(function()
-    CoinManager = require(script.Parent:WaitForChild("CoinManager"))
-end)
-
-if not success then
-    warn("⚠️ 无法加载 CoinManager: " .. tostring(err))
-    return
+-- 获取或创建 RemoteEvent
+local updateCoinEvent = ReplicatedStorage:FindFirstChild("UpdateCoinEvent")
+if not updateCoinEvent then
+    updateCoinEvent = Instance.new("RemoteEvent")
+    updateCoinEvent.Name = "UpdateCoinEvent"
+    updateCoinEvent.Parent = ReplicatedStorage
 end
 
--- 等待一小段时间让系统稳定
-task.wait(1)
+-- 金币拾取回调
+local function onCoinPickedUp(player, coinModel)
+    if not coinModel or not coinModel.Parent then
+        return
+    end
+    
+    local newCount = PlayerData:AddCoins(player, 1)
+    coinModel:Destroy()
+    updateCoinEvent:FireClient(player, newCount)
+end
 
+-- 等待系统稳定
+task.wait(2)
+
+print("🚀 金币生成器已启动")
+
+-- 主循环
 while true do
     task.wait(CoinConstants.SPAWN_INTERVAL)
     
@@ -24,6 +37,7 @@ while true do
     
     if currentCount < CoinConstants.MAX_COINS then
         local position = CoinUtility:GetRandomSpawnPosition()
-        CoinUtility:GenerateCoin(position, CoinManager.OnCoinPickedUp)
+        CoinUtility:GenerateCoin(position, onCoinPickedUp)
+        print("🪙 生成了新金币 (当前: " .. CoinUtility:GetCurrentCoinCount() .. "/" .. CoinConstants.MAX_COINS .. ")")
     end
 end
