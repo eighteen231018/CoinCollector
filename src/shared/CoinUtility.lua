@@ -10,7 +10,7 @@ function CoinUtility:CreateCoinModel()
     
     local coinPart = Instance.new("Part")
     coinPart.Name = "CoinPart"
-    coinPart.Size = Vector3.new(2, 0.4, 2)
+    coinPart.Size = Vector3.new(0.2, 3, 3)
     coinPart.Shape = Enum.PartType.Cylinder
     coinPart.Color = Color3.new(1, 0.843, 0)
     coinPart.Material = Enum.Material.Metal
@@ -22,12 +22,12 @@ function CoinUtility:CreateCoinModel()
     coinModel.PrimaryPart = coinPart
     
     local surfaceGui = Instance.new("SurfaceGui")
-    surfaceGui.Face = Enum.NormalId.Top
+    surfaceGui.Face = Enum.NormalId.Front
     surfaceGui.Parent = coinPart
     
     local textLabel = Instance.new("TextLabel")
     textLabel.Text = "💰"
-    textLabel.TextSize = 48
+    textLabel.TextSize = 100
     textLabel.BackgroundTransparency = 1
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.Parent = surfaceGui
