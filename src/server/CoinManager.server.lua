@@ -11,7 +11,7 @@ if not updateCoinEvent then
     updateCoinEvent.Parent = ReplicatedStorage
 end
 
--- 金币拾取回调（用于现有金币）
+-- 金币拾取回调
 local function onCoinPickedUp(player, coinModel)
     if not coinModel or not coinModel.Parent then
         return
@@ -31,8 +31,25 @@ local function setupExistingCoins()
     end
 end
 
+local function spawnInitialCoins()
+    local currentCount = CoinUtility:GetCurrentCoinCount()
+    local needed = CoinConstants.INITIAL_COINS - currentCount
+    
+    if needed > 0 then
+        print("🪙 正在生成初始金币... (" .. needed .. "个)")
+        for i = 1, needed do
+            local position = CoinUtility:GetRandomSpawnPosition()
+            CoinUtility:GenerateCoin(position, onCoinPickedUp)
+        end
+        print("✅ 初始金币生成完成！")
+    else
+        print("💡 地图上已有足够金币，跳过生成")
+    end
+end
+
 -- 延迟初始化
 task.wait(1)
 setupExistingCoins()
+spawnInitialCoins()
 
 print("✅ CoinManager 初始化完成")
