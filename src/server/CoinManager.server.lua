@@ -11,6 +11,35 @@ if not updateCoinEvent then
     updateCoinEvent.Parent = ReplicatedStorage
 end
 
+-- 创建地面
+local function createBaseplate()
+    local baseplate = Workspace:FindFirstChild("Baseplate")
+    if not baseplate then
+        baseplate = Instance.new("Part")
+        baseplate.Name = "Baseplate"
+        baseplate.Size = Vector3.new(200, 1, 200)
+        baseplate.Position = Vector3.new(0, -0.5, 0)
+        baseplate.Color = Color3.new(0.4, 0.4, 0.4)
+        baseplate.Anchored = true
+        baseplate.Parent = Workspace
+        print("🌍 地面创建完成！")
+    end
+end
+
+-- 创建玩家出生点
+local function createSpawnLocation()
+    local spawnLocation = Workspace:FindFirstChild("SpawnLocation")
+    if not spawnLocation then
+        spawnLocation = Instance.new("SpawnLocation")
+        spawnLocation.Name = "SpawnLocation"
+        spawnLocation.Position = Vector3.new(0, 2, 0)
+        spawnLocation.Enabled = true
+        spawnLocation.Duration = 0
+        spawnLocation.Parent = Workspace
+        print("🏠 玩家出生点创建完成！")
+    end
+end
+
 -- 金币拾取回调
 local function onCoinPickedUp(player, coinModel)
     if not coinModel or not coinModel.Parent then
@@ -49,6 +78,8 @@ end
 
 -- 延迟初始化
 task.wait(1)
+createBaseplate()
+createSpawnLocation()
 setupExistingCoins()
 spawnInitialCoins()
 

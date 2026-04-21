@@ -22,7 +22,7 @@ function CoinUtility:CreateCoinModel()
     coinModel.PrimaryPart = coinPart
     
     local surfaceGui = Instance.new("SurfaceGui")
-    surfaceGui.Face = Enum.NormalId.Front
+    surfaceGui.Face = Enum.NormalId.Right
     surfaceGui.Parent = coinPart
     
     local textLabel = Instance.new("TextLabel")
