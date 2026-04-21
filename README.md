@@ -17,3 +17,6 @@ Lua
 1. 克隆本仓库到本地
 ```bash
 git clone https://github.com/eighteen231018/CoinCollector.git
+```
+## 注意
+想要能够保存金币数需要保存到roblox然后打开Experience Setting中的Security，找到Enable Studio Access to API Services
